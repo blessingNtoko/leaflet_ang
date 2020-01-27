@@ -1,0 +1,17 @@
+.mapContain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: 30px;
+}
+
+.mapFrame {
+    border: 2px solid black;
+    height: 100%;
+}
+
+#map {
+    height: 100%;
+}
