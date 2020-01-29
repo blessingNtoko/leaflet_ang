@@ -1,6 +1,21 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { MarkerService } from '../services/marker.service';
 import * as L from 'leaflet';
 
+const iconRetinaUrl = 'assets/marker-icon-2x.png';
+const iconUrl = 'assets/marker-icon.png';
+const shadowUrl = 'assets/marker-shadow.png';
+const iconDefault = L.icon({
+  iconRetinaUrl,
+  iconUrl,
+  shadowUrl,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  tooltipAnchor: [16, -28],
+  shadowSize: [41, 41]
+});
+L.Marker.prototype.options.icon = iconDefault;
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -12,7 +27,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   public userLat: number;
   public userLng: number;
 
-  constructor() { }
+  constructor(private markerServe: MarkerService) { }
 
   ngOnInit() {
     if (navigator) {
@@ -26,6 +41,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.initMap();
+    this.markerServe.markersPlease(this.map);
   }
 
   public initMap() {
