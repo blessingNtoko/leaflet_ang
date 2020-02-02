@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { DriversService } from './drivers.service';
 import * as leaf from 'leaflet';
 
 @Injectable({
@@ -7,19 +8,26 @@ import * as leaf from 'leaflet';
 })
 export class MarkerService {
 
-  public capitals = '/assets/data/usa-capitals.geojson';
-  public customGeoJSON = '/assets/custom.geo.json';
+  public socialHubs: any;
+  public userLat: number;
+  public userLng: number;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private socials: DriversService
+    ) { }
 
   public markersPlease(map: leaf.Map): void {
-    this.http.get(this.customGeoJSON).subscribe((data: any) => {
-      console.log('Data ->', data);
-      for (const c of data.features) {
-        const lat = c.geometry.coordinates[0][0][0][0];
-        const lng = c.geometry.coordinates[1][0];
-        const marker = leaf.marker([lng, lat]).addTo(map);
-      }
+    this.socialHubs = this.socials.getDrivers();
+    console.log('Hubs', this.socialHubs);
+
+    this.socialHubs.forEach((hub: any) => {
+      console.log(hub);
+      const lat = hub['location']['lat'];
+      const lng = hub['location']['lng'];
+      const marker = leaf.circleMarker([lat, lng]).addTo(map);
+      console.log('user location ->', this.userLat, this.userLng);
+      // const userMark = leaf.marker([this.userLat, this.userLng]).addTo(map);
     });
   }
 }

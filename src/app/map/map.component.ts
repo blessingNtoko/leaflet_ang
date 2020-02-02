@@ -34,7 +34,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       navigator.geolocation.getCurrentPosition((pos) => {
         this.userLat = pos.coords.latitude;
         this.userLng = pos.coords.longitude;
-        console.log('lat&lng ->', this.userLat, this.userLng);
+        console.log('lat&lng ->', this.userLat , this.userLng);
       });
     }
   }
@@ -47,7 +47,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   public initMap() {
     this.map = L.map('map', {
       center: [-26.2397131, 28.169468799999997],
-      zoom: 3
+      zoom: 4
     });
 
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

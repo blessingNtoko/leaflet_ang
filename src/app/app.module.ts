@@ -18,7 +18,7 @@ import { MarkerService } from './services/marker.service';
     HttpClientModule
   ],
   providers: [
-    MarkerService
+    MarkerService,
   ],
   bootstrap: [AppComponent]
 })
